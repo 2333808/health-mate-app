@@ -1,12 +1,15 @@
 package com.healthmate.app.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.healthmate.app.models.Appointment.Status; 
 import com.healthmate.app.models.Appointment;
 import com.healthmate.app.repositories.AppointmentRepository;
 import java.util.Optional;
+import java.util.List;
 
-
+@Service
 public class AppointmentService 
 {
 
@@ -39,4 +42,13 @@ public class AppointmentService
             throw new RuntimeException("Appointment not found");
         }
     }
+
+    public List<Appointment> getAllAppointments() {
+    return appointmentRepository.findAll();
+    }
+
+    public Appointment createAppointment(Appointment appointment) {
+    return appointmentRepository.save(appointment);
+    }
+
 }
