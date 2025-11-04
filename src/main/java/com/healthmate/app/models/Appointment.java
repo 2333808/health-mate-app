@@ -5,6 +5,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Table;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.JoinColumn;
 
 @Entity
 @Table(name = "appointment")
@@ -14,32 +16,41 @@ public class Appointment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String patientName;
+    @ManyToOne
+    @JoinColumn(name = "patient_id")
+    private Patient patient;
+
     private String appointmentDate;
     private String appointmentTime;
-    private String doctorName;
+
+    @ManyToOne
+    @JoinColumn(name = "doctor_id")
+    private Doctor doctor;
+
     private Status status;
 
     public enum Status {
-        SCHEDULED,
-        CANCELLED
-    }
+    SCHEDULED,
+    CANCELLED,
+    COMPLETED,
+    RESCHEDULED
+}
 
     public Appointment() {}
 
-    public Appointment(String patientName, String appointmentDate, String appointmentTime, String doctorName, Status status) {
-        this.patientName = patientName;
+    public Appointment(Patient patient, String appointmentDate, String appointmentTime, Doctor doctor, Status status) {
+        this.patient = patient;
         this.appointmentDate = appointmentDate;
         this.appointmentTime = appointmentTime;
-        this.doctorName = doctorName;
+        this.doctor = doctor;
         this.status = status;
     }
 
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 
-    public String getPatientName() { return patientName; }
-    public void setPatientName(String patientName) { this.patientName = patientName; }
+    public Patient getPatient() { return patient; }
+    public void setPatient(Patient patient) { this.patient = patient; }
 
     public String getAppointmentDate() { return appointmentDate; }
     public void setAppointmentDate(String appointmentDate) { this.appointmentDate = appointmentDate; }
@@ -47,8 +58,8 @@ public class Appointment {
     public String getAppointmentTime() { return appointmentTime; }
     public void setAppointmentTime(String appointmentTime) { this.appointmentTime = appointmentTime; }
 
-    public String getDoctorName() { return doctorName; }
-    public void setDoctorName(String doctorName) { this.doctorName = doctorName; }
+    public Doctor getDoctor() { return doctor; }
+    public void setDoctor(Doctor doctor) { this.doctor = doctor; }
 
     public Status getStatus() { return status; }
     public void setStatus(Status status) { this.status = status; }
