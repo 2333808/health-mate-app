@@ -1,23 +1,23 @@
 package com.healthmate.app.models;
 
-import jakarta.persistence.*;
-import java.time.LocalDate;
-import java.time.LocalTime;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Table;
 
 @Entity
-public class Appointment 
-{
+@Table(name = "appointment")
+public class Appointment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String patientName;
-    private LocalDate appointmentDate;
-    private LocalTime appointmentTime;
+    private String appointmentDate;
+    private String appointmentTime;
     private String doctorName;
-
-    @Enumerated(EnumType.STRING)
     private Status status;
 
     public enum Status {
@@ -25,7 +25,15 @@ public class Appointment
         CANCELLED
     }
 
-    // Getters and setters
+    public Appointment() {}
+
+    public Appointment(String patientName, String appointmentDate, String appointmentTime, String doctorName, Status status) {
+        this.patientName = patientName;
+        this.appointmentDate = appointmentDate;
+        this.appointmentTime = appointmentTime;
+        this.doctorName = doctorName;
+        this.status = status;
+    }
 
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
@@ -33,11 +41,11 @@ public class Appointment
     public String getPatientName() { return patientName; }
     public void setPatientName(String patientName) { this.patientName = patientName; }
 
-    public LocalDate getAppointmentDate() { return appointmentDate; }
-    public void setAppointmentDate(LocalDate appointmentDate) { this.appointmentDate = appointmentDate; }
+    public String getAppointmentDate() { return appointmentDate; }
+    public void setAppointmentDate(String appointmentDate) { this.appointmentDate = appointmentDate; }
 
-    public LocalTime getAppointmentTime() { return appointmentTime; }
-    public void setAppointmentTime(LocalTime appointmentTime) { this.appointmentTime = appointmentTime; }
+    public String getAppointmentTime() { return appointmentTime; }
+    public void setAppointmentTime(String appointmentTime) { this.appointmentTime = appointmentTime; }
 
     public String getDoctorName() { return doctorName; }
     public void setDoctorName(String doctorName) { this.doctorName = doctorName; }
